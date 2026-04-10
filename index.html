@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Time Remaining</title>
+<script src="https://cdn.jsdelivr.net/npm/brython@3/brython.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/brython@3/brython_stdlib.js"></script>
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(45deg, #FF0000, #660000, #FF0000);
+  color: #f1f5f9;
+  text-align: center;
+  margin: 0;
+  padding: 40px;
+}
+
+h2 {
+  font-size: 2.2em;
+  margin-bottom: 10px;
+}
+
+h3 {
+  margin: 20px 0;
+}
+
+div {
+  display: inline-block;
+  min-width: 60px;
+  padding: 10px 15px;
+  margin: 5px;
+  font-size: 1.5em;
+  font-weight: bold;
+  background: #334155;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+p {
+  display: inline-block;
+}
+
+span {
+  margin-right: 10px;
+  font-size: 1em;
+  color: #cbd5f5;
+}
+
+#hleft, #mleft, #sleft {
+  background: #1d4ed8;
+  width: 400px;
+  display: inline-flex;
+  text-align: left;
+  font-variant-numeric: tabular-nums;
+  overflow: hidden;
+}
+
+#hr, #mn, #sc {
+  width: 150px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+
+}
+
+br {
+  margin-bottom: 10px;
+  display: block;
+  content: "";
+}
+
+
+
+</style>
+
+</head>
+
+<body onload="brython()">
+<div class="container">
+
+<h2>Time Remaining:</h2>
+<br>
+<div id="remtimed"></div> <span>days</span>
+<div id="remtimeh"></div> <span>hours</span>
+<div id="remtimem"></div> <span>minutes</span>
+<div id="remtimes"></div> <span>seconds</span>
+</h3>
+<br>
+<br>
+<br>
+
+<h2>Absolute Times:</h2>
+<br>
+<div id="hleft"></div> <div id="hr">hours</div>
+<br>
+<div id="mleft"></div> <div id="mn">minutes</div>
+<br>
+<div id="sleft"></div> <div id="sc">seconds</div>
+
+<script type="text/python">
+from browser import document
+from datetime import datetime
+from browser import timer
+def calcu():
+	calendar = [1,0,0,1,1,0.9,1,0,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,0,0,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1]
+	def time_left_tuple(target):
+		now = datetime.now()
+		diff = target - now
+		total_seconds = int(diff.total_seconds())
+		days = total_seconds // 86400
+		remainder = total_seconds % 86400
+		hours = remainder // 3600
+		remainder %= 3600
+		minutes = remainder // 60
+		seconds = remainder % 60
+		return (days, hours, minutes, seconds)
+
+	def normalize(days, hours, minutes, seconds):
+		total_seconds = days*86400+hours*3600+minutes*60+seconds
+		days = total_seconds // 86400
+		remainder = total_seconds % 86400
+		hours = remainder // 3600
+		remainder %= 3600
+		minutes = remainder // 60
+		seconds = remainder % 60
+		return(days,hours,minutes,seconds)
+
+	now = datetime.now()
+	end = datetime(2026, 6, 19, 15, 45, 0)
+	start = datetime(2026, 4, 9, 0, 0, 0)
+	diff = now - start
+	total_seconds = int(diff.total_seconds())
+	sliced = total_seconds // 86400
+	calendar = calendar[sliced:]
+	school_days = 0
+	school_hours = 0
+	school_minutes = time_left_tuple(end)[2]
+	school_seconds = time_left_tuple(end)[3]
+
+	for values in calendar:
+		if values == 1:
+			school_days += 1
+		elif values == 0:
+			pass
+		else:
+			school_days += 1
+			school_hours -= 1
+			school_minutes -= 15
+			
+
+	time_remaining = time_left_tuple(end)
+	school_time = normalize(school_days,school_hours,school_minutes,school_seconds)
+	hours_left = school_days*24+school_hours+school_minutes/60+school_seconds/3600
+	minutes_left = school_days*1440+school_hours*60+school_minutes+school_seconds/60
+	seconds_left = school_days*86400+school_hours*3600+school_minutes*60+school_seconds
+	
+	
+	document["remtimed"].text = school_time[0]
+	document["remtimeh"].text = school_time[1]
+	document["remtimem"].text = school_time[2]
+	document["remtimes"].text = school_time[3]
+	
+	document["hleft"].text = hours_left
+	document["mleft"].text = minutes_left
+	document["sleft"].text = seconds_left
+
+timer.set_interval(calcu, 1000)
+  
+</script>
+</div>
+</body>
+</html>
