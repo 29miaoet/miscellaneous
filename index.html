@@ -13,24 +13,27 @@ body {
   color: #f1f5f9;
   text-align: center;
   margin: 0;
-  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 h2 {
-  font-size: 2.2em;
-  margin-bottom: 10px;
+  font-size: 1.83em;
+  margin-bottom: 8.33px;
 }
 
 h3 {
-  margin: 20px 0;
+  margin: 16.67px 0;
 }
 
 div {
   display: inline-block;
-  min-width: 80px;
-  padding: 10px 15px;
-  margin: 10px;
-  font-size: 1.5em;
+  min-width: 66.67px;
+  padding: 8.33px 12.5px;
+  margin: 8.33px;
+  font-size: 1.25em;
   font-weight: bold;
   background: #800020;
   border-radius: 10px;
@@ -42,14 +45,21 @@ p {
 }
 
 span {
-  margin-right: 10px;
-  font-size: 1em;
+  margin-right: 8.33px;
+  font-size: 0.83em;
   color: #cbd5f5;
+}
+
+#status_text{
+  margin-right: 8.33px;
+  font-size: 0.9em;
+  font-style: italic;
+  color: #FFFFF;
 }
 
 #hleft, #mleft, #sleft {
   background: #1d4ed8;
-  width: 400px;
+  width: 333.33px;
   display: inline-flex;
   text-align: left;
   font-variant-numeric: tabular-nums;
@@ -57,21 +67,19 @@ span {
 }
 
 #hr, #mn, #sc {
-  width: 150px;
+  width: 125px;
   display: inline-flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   white-space: nowrap;
-
 }
 
 br {
-  margin-bottom: 10px;
+  margin-bottom: 8.33px;
   display: block;
   content: "";
 }
-
 
 
 </style>
@@ -81,15 +89,22 @@ br {
 <body onload="brython()">
 <div class="container">
 
-<h2>Time Remaining:</h2>
+<h2>School Time Remaining:</h2>
 <br>
 <div id="remtimed"></div> <span>days</span>
 <div id="remtimeh"></div> <span>hours</span>
 <div id="remtimem"></div> <span>minutes</span>
 <div id="remtimes"></div> <span>seconds</span>
-</h3>
+
 <br>
+
+<h2>Total Time Remaining:</h2>
 <br>
+<div id="remd"></div> <span>days</span>
+<div id="remh"></div> <span>hours</span>
+<div id="remm"></div> <span>minutes</span>
+<div id="rems"></div> <span>seconds</span>
+
 <br>
 
 <h2>Absolute Times:</h2>
@@ -99,75 +114,152 @@ br {
 <div id="mleft"></div> <div id="mn">minutes</div>
 <br>
 <div id="sleft"></div> <div id="sc">seconds</div>
+<br>
+<br>
+<span id="status_text"></span>
+
 
 <script type="text/python">
 from browser import document
 from datetime import datetime
 from browser import timer
 def calcu():
-	calendar = [1,0,0,1,1,0.9,1,0,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,0,0,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1]
-	def time_left_tuple(target):
-		now = datetime.now()
-		diff = target - now
-		total_seconds = int(diff.total_seconds())
-		days = total_seconds // 86400
-		remainder = total_seconds % 86400
-		hours = remainder // 3600
-		remainder %= 3600
-		minutes = remainder // 60
-		seconds = remainder % 60
-		return (days, hours, minutes, seconds)
+    calendar = [0,0,0,1,1,0.9,1,0,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,0,0,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1]
+    def time_left_tuple(target):
+        now = datetime.now()
+        diff = target - now
+        total_seconds = int(diff.total_seconds())
+        days = total_seconds // 86400
+        remainder = total_seconds % 86400
+        hours = remainder // 3600
+        remainder %= 3600
+        minutes = remainder // 60
+        seconds = remainder % 60
+        return (days, hours, minutes, seconds)
 
-	def normalize(days, hours, minutes, seconds):
-		total_seconds = days*86400+hours*3600+minutes*60+seconds
-		days = total_seconds // 86400
-		remainder = total_seconds % 86400
-		hours = remainder // 3600
-		remainder %= 3600
-		minutes = remainder // 60
-		seconds = remainder % 60
-		return(days,hours,minutes,seconds)
+    def normalize(days, hours, minutes, seconds):
+        total_seconds = days*86400+hours*3600+minutes*60+seconds
+        days = total_seconds // 86400
+        remainder = total_seconds % 86400
+        hours = remainder // 3600
+        remainder %= 3600
+        minutes = remainder // 60
+        seconds = remainder % 60
+        return(days,hours,minutes,seconds)
 
-	now = datetime.now()
-	end = datetime(2026, 6, 19, 15, 45, 0)
-	start = datetime(2026, 4, 9, 0, 0, 0)
-	diff = now - start
-	total_seconds = int(diff.total_seconds())
-	sliced = total_seconds // 86400
-	calendar = calendar[sliced:]
-	school_days = 0
-	school_hours = 0
-	school_minutes = time_left_tuple(end)[2]
-	school_seconds = time_left_tuple(end)[3]
+    now = datetime.now()
+    end = datetime(2026, 6, 19, 15, 45, 0)
+    start = datetime(2026, 4, 9, 0, 0, 0)
+    diff = now - start
+    total_seconds = int(diff.total_seconds())
+    sliced = total_seconds // 86400
+    calendar = calendar[(sliced-1):]
+    school_days = -1
+    school_hours = 0
+    school_minutes = time_left_tuple(end)[2]
+    school_seconds = time_left_tuple(end)[3]
 
-	for values in calendar:
-		if values == 1:
-			school_days += 1
-		elif values == 0:
-			pass
-		else:
-			school_days += 1
-			school_hours -= 1
-			school_minutes -= 15
-			
+    for values in calendar:
+        if values == 1:
+            school_days += 1
+        elif values == 0:
+            pass
+        else:
+            school_days += 1
+ 
+    
 
-	time_remaining = time_left_tuple(end)
-	school_time = normalize(school_days,school_hours,school_minutes,school_seconds)
-	hours_left = school_days*24+school_hours+school_minutes/60+school_seconds/3600
-	minutes_left = school_days*1440+school_hours*60+school_minutes+school_seconds/60
-	seconds_left = school_days*86400+school_hours*3600+school_minutes*60+school_seconds
-	
-	
-	document["remtimed"].text = school_time[0]
-	document["remtimeh"].text = school_time[1]
-	document["remtimem"].text = school_time[2]
-	document["remtimes"].text = school_time[3]
-	
-	document["hleft"].text = hours_left
-	document["mleft"].text = minutes_left
-	document["sleft"].text = seconds_left
+    curr_index = calendar[0]
+    curr_hour = now.hour + now.minute / 60 + now.second / 3600
+    if curr_index == 1:
+        if curr_hour>15.75:
+            school_hours = 0
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "School Has Ended"
+        elif 8.5>curr_hour:
+            school_hours = 7
+            school_minutes = 15
+            school_seconds = 0
+            stattext = "Regular School Day Today"
+        elif 8.5<=curr_hour<=15.75:
+            school_hours = 15.75 - curr_hour
+            school_minutes = (school_hours - int(school_hours))*60
+            school_seconds = (school_minutes - int(school_minutes))*60
+            school_hours = int(school_hours)
+            school_minutes = int(school_minutes)
+            school_seconds = int(school_seconds)
+            stattext = "Regular School Day"
+
+    elif curr_index == 0:
+        school_hours = 0
+        school_minutes = 0
+        school_seconds = 0
+        stattext = "No School Today"
+
+    elif curr_index == 0.9:
+        if curr_hour>15.75:
+            school_hours = 0
+            stattext = "School Has Ended"
+        elif 9.75>curr_hour:
+            school_hours = 6
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "Late Start Today"
+        elif 9.75<=curr_hour<=15.75:
+            school_hours = 15.75 - curr_hour
+            school_minutes = (school_hours - int(school_hours))*60
+            school_seconds = (school_minutes - int(school_minutes))*60
+            school_hours = int(school_hours)
+            school_minutes = int(school_minutes)
+            school_seconds = int(school_seconds)
+            stattext = "Late Start"
+        
+    elif curr_index == 0.8:
+        if curr_hour>14.5:
+            school_hours = 0
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "School Has Ended"
+        elif 8.5>curr_hour:
+            school_hours = 6
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "Early Dismissal Today"
+        elif 8.5<=curr_hour<=14.5:
+            school_hours = 14.5 - curr_hour
+            school_minutes = (school_hours - int(school_hours))*60
+            school_seconds = (school_minutes - int(school_minutes))*60
+            school_hours = int(school_hours)
+            school_minutes = int(school_minutes)
+            school_seconds = int(school_seconds)
+            stattext = "Early Dismissal"
+            
+
+    time_rem = time_left_tuple(end)
+    school_time = normalize(school_days,school_hours,school_minutes,school_seconds)
+    hours_left = school_days*24+school_hours+school_minutes/60+school_seconds/3600
+    minutes_left = school_days*1440+school_hours*60+school_minutes+school_seconds/60
+    seconds_left = school_days*86400+school_hours*3600+school_minutes*60+school_seconds
+    
+    document["remtimed"].text = school_time[0]
+    document["remtimeh"].text = school_time[1]
+    document["remtimem"].text = school_time[2]
+    document["remtimes"].text = school_time[3]
+    
+    document["remd"].text = time_rem[0]
+    document["remh"].text = time_rem[1]
+    document["remm"].text = time_rem[2]
+    document["rems"].text = time_rem[3]
+    
+    document["hleft"].text = hours_left
+    document["mleft"].text = minutes_left
+    document["sleft"].text = seconds_left
+    
+    document["status_text"].text = stattext
 
 timer.set_interval(calcu, 1000)
+
   
 </script>
 </div>
