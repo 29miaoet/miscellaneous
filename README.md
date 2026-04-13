@@ -45,7 +45,7 @@ exploring the Fibonacci Sequence and prime and perfect numbers.
   - wordle+.py
   - words_alpha.txt
 
-Description:
+Description:  
 This project was created to mimic the popular NY Times game wordle, while 
 it does not have gui support, it has a fast and user-friendly CLI interface, 
 and advanced features including settings and word-validating. The .exe file is 
@@ -54,7 +54,7 @@ a pre-packaged version for windows only, the other files are cross-platform.
 ---
 - **summer_countdown.html**
 
-Description:
+Description:  
 This is an actively maintained project to count down the days until summer 
 vacation, it utilizes the Brython browser python, and includes coutdowns for 
 total time, school time, and school time in hours, minutes, and seconds. You 
