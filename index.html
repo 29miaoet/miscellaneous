@@ -154,10 +154,12 @@ def calcu():
     total_seconds = int(diff.total_seconds())
     sliced = total_seconds // 86400
     calendar = calendar[(sliced-1):]
-    school_days = -1
+    school_days = 0
     school_hours = 0
     school_minutes = time_left_tuple(end)[2]
     school_seconds = time_left_tuple(end)[3]
+    curr_index = calendar[0]
+    del calendar[0]
 
     for values in calendar:
         if values == 1:
@@ -169,7 +171,7 @@ def calcu():
  
     
 
-    curr_index = calendar[0]
+
     curr_hour = now.hour + now.minute / 60 + now.second / 3600
     if curr_index == 1:
         if curr_hour>15.75:
@@ -257,8 +259,10 @@ def calcu():
     document["sleft"].text = seconds_left
     
     document["status_text"].text = stattext
+    
 
 timer.set_interval(calcu, 1000)
+
 
   
 </script>
