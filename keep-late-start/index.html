@@ -1,0 +1,500 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="Save Late Start Wednesdays is a program dedicated to helping students with later start times.">
+<meta name="google-site-verification" content="FcUvDg5NAGm-37-VWUkVFUlgpD059Zy3fV95srO2S3c" />
+<meta name="msvalidate.01" content="16CD2C49295008DDE8641FAAF72CC16A" />
+<title>Save Late Start Wednesdays</title>
+  
+
+<style>
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f9fbfd;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1f3a5f;
+  color: white;
+  padding: 15px 30px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+}
+
+.navbar h2 {
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 24px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover,
+.navbar a:focus {
+  text-decoration: underline;
+  color: #cbd5e1;
+  outline: none;
+}
+
+/* Hero */
+/* Removed hero section since none in your final markup */
+
+/* Sections */
+.section {
+  padding: 70px 10%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.section .text {
+  flex: 1 1 300px;
+  min-width: 280px;
+}
+
+.section .text h2 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  color: #1f3a5f;
+  font-weight: 700;
+}
+
+.section .text p {
+  margin-bottom: 1.2rem;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: #444;
+}
+
+.section .image {
+  flex: 1 1 300px;
+  min-width: 280px;
+  display: flex;
+  justify-content: center;
+}
+
+.section .image img {
+  width: 100%;
+  max-width: 520px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  object-fit: cover;
+}
+
+/* CTA */
+.cta {
+  background: #1f3a5f;
+  color: white;
+  text-align: center;
+  padding: 70px 20px;
+}
+
+.cta h2 {
+  font-size: 2.25rem;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.cta p {
+  font-size: 1.25rem;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.4;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  margin: 0 12px 12px 12px;
+  background: #3498db;
+  color: white;
+  padding: 14px 28px;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 3px 6px rgba(52,152,219,0.4);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+.btn:hover,
+.btn:focus {
+  background: #217dbb;
+  box-shadow: 0 6px 12px rgba(33,125,187,0.6);
+  outline: none;
+}
+
+/* Community Contributions Section */
+h2.community-header {
+  margin: 60px 10% 10px;
+  font-size: 2rem;
+  color: #1f3a5f;
+  font-weight: 700;
+}
+
+.community-text {
+  margin: 0 10% 30px;
+  font-size: 1.1rem;
+  color: #444;
+  max-width: 800px;
+}
+
+.community-link {
+  display: inline-block;
+  margin: 0 10% 60px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #3498db;
+  text-decoration: none;
+  user-select: text;
+  transition: color 0.3s ease;
+}
+
+.community-link:hover,
+.community-link:focus {
+  color: #217dbb;
+  text-decoration: underline;
+  outline: none;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 20px 10%;
+  background: #1f3a5f;
+  color: white;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .section {
+    flex-direction: column;
+    padding: 50px 8%;
+  }
+
+  .section .image, .section .text {
+    min-width: 100%;
+  }
+
+  .cta {
+    padding: 50px 15px;
+  }
+
+  h2.community-header,
+  .community-text,
+  .community-link {
+    margin-left: 8%;
+    margin-right: 8%;
+  }
+
+  .hero h1 {
+    font-size: 2rem;
+  }
+  
+}
+
+/* Collapsible button */
+.collapsible {
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+  padding: 12px 20px;
+  width: 100%;
+  border: none;
+  border-radius: 6px;
+  text-align: left;
+  font-size: 1.1rem;
+  transition: background 0.3s ease;
+  margin-top: 12px;
+}
+
+.collapsible:hover {
+  background-color: #217dbb;
+}
+
+/* Collapsible content */
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+  padding-left: 0;
+  margin-top: 0;
+}
+
+.content p {
+  padding: 10px 0;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Save Late Start Wednesdays</h1>
+
+<!-- Navbar -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <h2>Save Late Start Wednesdays</h2>
+  <div>
+    <a href="#overview">Overview</a>
+	<a href="#issues">The Issue</a>
+    <a href="#benefits">Benefits</a>
+    <a href="#how-to-help">How to Help</a>
+	<a href="#articles">Featured Articles</a>
+  </div>
+</nav>
+
+<!-- Overview -->
+<section id="overview" class="section" tabindex="-1">
+  <div class="text">
+    <h2>Overview</h2>
+    <p>
+      Late Start Wednesdays were introduced to support teacher collaboration,
+      student well-being, and improved learning outcomes.
+    </p>
+    <p>
+      Now the LRSD school division wants to take them away without consulting 
+      students or parents. Our goal is to make them see that our voices matter!
+    </p>
+  </div>
+  <div class="image">
+    <img src="images/kids-school.jpg" alt="School" />
+  </div>
+</section>
+
+<!-- Issues Section -->
+<section id="issues" class="section" tabindex="-1">
+  <div class="text">
+    <h2>What is the Issue?</h2>
+    <p>
+      The LRSD school division has decided to remove late start Wednesdays, 
+	  citing the provincial teacher collective agreement as the reason.
+	  They claim that "Continuing a late start is no longer possible".  
+    </p>
+    <p>
+      Our group has managed to obtain an advanced copy of the informational email, 
+	  the official announcement has not been released yet, which gives us 
+	  time to mobilize support.
+    </p>
+	<p>
+	  Our current plan is to gather support and information, and present it 
+	  to the LRSD school board during the April 21st comunity board meeting, 
+	  or after the official LRSD announcement is released.
+	</p>
+
+  </div>
+  <div class="image">
+    <img src="images/email.jpg" alt="Email" />
+  </div>
+</section>
+
+<!-- Benefits Section -->
+<section id="benefits" class="section" tabindex="-1">
+  <div class="text">
+    <h2>Benefits of Late Start Wednesdays</h2>
+    <p>
+      Late Start Wednesdays give teachers extra collaboration time,
+      allow students to rest and engage more in their studies, and
+      improve overall school climate.
+    </p>
+    <p>
+      Studies show that well-rested students are more focused and
+      retain information better, leading to higher learning outcomes.
+    </p>
+  </div>
+  <div class="image">
+    <img src="images/benefits.jpg" alt="Students studying" />
+  </div>
+</section>
+
+<!-- How to Help Section -->
+<section id="how-to-help" class="section" tabindex="-1">
+  <div class="text">
+    <h2>How You Can Help</h2>
+    <p>
+      Share petitions online, talk to your teachers and parents, and join
+      community discussions to make your voice heard.
+    </p>
+    <p>
+      Every small action counts! Together, we can ensure that
+      Late Start Wednesdays continue for the benefit of all students!
+    </p>
+  </div>
+  <div class="image">
+    <img src="images/help.jpg" alt="Community helping" />
+  </div>
+</section>
+
+<!-- Featured Articles -->
+<section id="articles" class="section" tabindex="-1">
+  <div class="text">
+    <h2>Featured Articles</h2>
+	<p>By <b>You Know Who</b>, Thomas Gan, and Ethan Miao</p>
+    <p>
+      The Louis Riel School Division is planning to remove late start! 
+      Every Wednesday, something small but meaningful happens across 
+      schools in the Louis Riel School Division — students get an extra 
+      hour of sleep. It sounds simple, but that one morning a week has a 
+      real impact, and every school division in the province should commit to 
+      keeping it.
+    </p>
+
+    <!-- Collapsible Button -->
+    <button class="collapsible" aria-expanded="false">Read More</button>
+
+    <!-- Collapsible Content -->
+    <div class="content">
+      <p>
+        The Canadian Paediatric Society recommends 8 to 10 hours of 
+		sleep per night for teenagers — a target that's nearly impossible 
+		to hit consistently on school nights with an early start time 
+		five days a week. Wednesday late start doesn't fix everything, 
+		but it gives students one guaranteed morning of
+		recovery mid-week, right when fatigue tends to peak.
+      </p>
+      <p>
+        And that timing matters. By Wednesday, the sleep debt from Monday 
+		and Tuesday has already built up. With the current schedule, teachers 
+		notice the difference — students are more present, more engaged, 
+		and more capable of doing actual work. One morning a week is a small 
+		ask with an incredibly large return.
+      </p>
+      <p>
+		Wednesday morning is not only an hour of extra sleep for students, 
+		it's also an irreplaceable time for teachers and EAs to plan and 
+		discuss the following week. Taking this out will not only disrupt 
+		the schedules of students but also throw a wrench into the plans of 
+		teachers all over the city.
+      </p>
+	  <p>
+		There's a mental health dimension here too. Student burnout and 
+		anxiety are ongoing concerns in Winnipeg schools, and chronic sleep 
+		deprivation is directly tied to increased rates of depression.  
+		Removing it removes something students have come to genuinely rely on.
+      </p>
+	  <p>
+		Some might argue it's just one morning and therefore the impact is overstated. 
+		But consistency is exactly what makes it valuable. Students can plan 
+		around it, sleep in without guilt, and know it's coming every week. 
+		That predictability is part of what makes it work. 
+      </p>
+	  <p>
+		Every division in Winnipeg serves students with the same physiological needs. 
+		Whether a student goes to school in River Heights, the North End, or anywhere 
+		in between, Wednesday morning hits the same way. A commitment to late start 
+		across all divisions sends a clear message: student wellbeing isn't just something 
+		we talk about, it's something we build into the schedule.
+      </p>
+	  <p>
+		One morning. Every Wednesday. It's not a big ask — and for thousands of Winnipeg students, 
+		it makes a genuine difference. Sign this petition to tell the Louis Riel School Division: 
+		Wednesday late start works, students need it, and it should stay.
+      </p>
+    </div>
+  </div>
+
+  <div class="image">
+    <img src="images/lrsd.webp" alt="LRSD-Logo" />
+  </div>
+</section>
+
+
+<!-- CTAs -->
+
+<section class="cta" tabindex="-1">
+  <h2>Your Voice Matters</h2>
+  <p>Sign the petitions below to show that Late Start Wednesdays matter!</p>
+  <a href="https://c.org/HXhHZPqMLr" class="btn" target="_blank" rel="noopener noreferrer">Sign the LRSD Petition</a>
+  <a href="https://c.org/kJn2qbpXrY" class="btn" target="_blank" rel="noopener noreferrer">Sign the CJS Petition</a>
+  <a href="https://www.change.org/p/save-late-start-at-bruns" class="btn" target="_blank" rel="noopener noreferrer">Sign the JH Brun's Petition</a>
+  
+  <a href="https://pad.riseup.net/p/Save-Late-Start" class="btn" target="_blank" rel="noopener noreferrer">Contribute to the forum</a>
+</section>
+
+<br>
+<!-- Community Contributions -->
+<h2 class="community-header">Community Contributions</h2>
+<p class="community-text">Join the discussion below!</p>
+<div id="disqus_thread"></div>
+
+<script>
+const collapsibles = document.querySelectorAll(".collapsible");
+
+collapsibles.forEach(button => {
+  button.addEventListener("click", () => {
+    const content = button.nextElementSibling;
+
+    // Toggle expanded state
+    const isExpanded = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", !isExpanded);
+
+    // Toggle max-height for smooth animation
+    if (!isExpanded) {
+      content.style.maxHeight = content.scrollHeight + "px";
+    } else {
+      content.style.maxHeight = 0;
+    }
+  });
+});
+</script>
+<script>
+    /**
+    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+    /*
+    var disqus_config = function () {
+    this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    */
+    (function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = 'https://save-late-start.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+<!-- Footer -->
+<footer>
+    <p>© 2026 Save Late Start</p>
+</footer>
+
+<script id="dsq-count-scr" src="//save-late-start.disqus.com/count.js" async></script>
+
+</body>
+</html>
