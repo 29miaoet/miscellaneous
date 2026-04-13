@@ -252,6 +252,8 @@ def calcu():
             
 
     time_rem = time_left_tuple(end)
+    if -1<=(time_rem[3] - school_seconds)<=1 and school_seconds != 0:
+        school_seconds = time_rem[3]
     school_time = normalize(school_days,school_hours,school_minutes,school_seconds)
     hours_left = calc_hr_left()
     minutes_left = calc_hr_left()*60
