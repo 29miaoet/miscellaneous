@@ -4,7 +4,7 @@ This repository contains small projects that are smaller than **50KB**,
 files that require dependancies are in their own folders, while 
 standalone files are by themselves, the repository structure is below:
 
-- **keep-late-start**
+- ***keep-late-start***
   - images
     - benefits.jpg
     - email.jpg
@@ -23,7 +23,7 @@ However, the raw html file is still available and can be appropriated for
 personal use.
 
 ---
-- **math**
+- ***math***
   - binomial_unpacker.py
   - fibonacci.py
   - prime_generater.py
@@ -37,7 +37,7 @@ It also includes scripts that deal with recursive sequences and number theory,
 exploring the Fibonacci Sequence and prime and perfect numbers.
 
 ---
-- **wordle**
+- ***wordle***
   - common_words.txt
   - help.txt
   - settings.ndjson
@@ -52,7 +52,7 @@ and advanced features including settings and word-validating. The .exe file is
 a pre-packaged version for windows only, the other files are cross-platform.
 
 ---
-- **summer_countdown.html**
+- ***summer_countdown.html***
 
 Description:  
 This is an actively maintained project to count down the days until summer 
@@ -61,7 +61,7 @@ total time, school time, and school time in hours, minutes, and seconds. You
 can view the live website [here](https://29miaoet.github.io/miscellaneous/summer_countdown.html).
 
 ---
-- **tkinter_calculator.py**
+- ***tkinter_calculator.py***
 
 Description:
 This is a beginner level calculator, designed to mimic the basic calculator 
