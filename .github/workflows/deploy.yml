@@ -1,0 +1,119 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install --save-dev html-minifier terser cssnano postcss
+
+      - name: Create deployment directory
+        run: mkdir -p dist
+
+      - name: Copy and minify files
+        run: |
+          # Define blacklisted files/patterns
+          BLACKLIST=(
+            "README.md"
+            ".github"
+            ".gitignore"
+            "wordle"
+            "math"
+            "tkinter_calculator.py"
+          )
+          
+          # Function to check if file is blacklisted
+          is_blacklisted() {
+            local file="$1"
+            for pattern in "${BLACKLIST[@]}"; do
+              if [[ "$file" == *"$pattern"* ]]; then
+                return 0
+              fi
+            done
+            return 1
+          }
+          
+          # Function to minify HTML
+          minify_html() {
+            npx html-minifier --collapse-whitespace --remove-comments --remove-optional-tags "$1" > "$2"
+          }
+          
+          # Function to minify CSS
+          minify_css() {
+            npx cssnano "$1" > "$2"
+          }
+          
+          # Function to minify JavaScript
+          minify_js() {
+            npx terser "$1" -o "$2"
+          }
+          
+          # Process all files
+          find . -type f ! -path './dist/*' ! -path './.git/*' ! -path './node_modules/*' | while read file; do
+            # Skip if blacklisted
+            if is_blacklisted "$file"; then
+              echo "Skipping: $file"
+              continue
+            fi
+            
+            # Determine destination path
+            dest_file="dist/${file#./}"
+            mkdir -p "$(dirname "$dest_file")"
+            
+            # Minify based on file type
+            case "$file" in
+              *.html)
+                echo "Minifying HTML: $file"
+                minify_html "$file" "$dest_file"
+                ;;
+              *.css)
+                echo "Minifying CSS: $file"
+                minify_css "$file" "$dest_file"
+                ;;
+              *.js)
+                if ! is_blacklisted "$file"; then
+                  echo "Minifying JS: $file"
+                  minify_js "$file" "$dest_file"
+                fi
+                ;;
+              *)
+                echo "Copying: $file"
+                cp "$file" "$dest_file"
+                ;;
+            esac
+          done
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
