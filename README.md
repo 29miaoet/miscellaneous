@@ -20,7 +20,8 @@ for the [Save Late Start Wednesday in LRSD](https://c.org/HXhHZPqMLr)
 petition; it has since been abandoned due to concerns about legal 
 safety and disagreements with [Collêge Jean Sauvé](https://www.lrsd.net/cjs). 
 However, the raw html file is still available and can be appropriated for 
-personal use.
+personal use. It has been reactivated on April 15th, and has been deployed 
+[here](https://29miaoet.github.io/miscellaneous/save-late-start/)
 
 ---
 - ***math***
