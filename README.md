@@ -29,6 +29,7 @@ personal use.
   - prime_generater.py
   - quadratic_solver.py
   - sorter.sh
+  - base_translate.py
  
 Description:  
 This project was designed to simplify repetitive and tedious mathematical 
