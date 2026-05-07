@@ -1,0 +1,164 @@
+from browser import document
+from datetime import datetime
+from browser import timer
+
+def calcu():
+    calendar = [0,0,0,1,1,0.9,1,0,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,0,0,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,0.8,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1,0,0,1,1,0.9,1,1]
+    now = datetime.now()
+    def time_left_tuple(target, now):
+        diff = target - now
+        total_seconds = int(diff.total_seconds())
+        days = total_seconds // 86400
+        remainder = total_seconds % 86400
+        hours = remainder // 3600
+        remainder %= 3600
+        minutes = remainder // 60
+        seconds = remainder % 60
+        return (days, hours, minutes, seconds)
+
+    def normalize(days, hours, minutes, seconds):
+        total_seconds = days*86400+hours*3600+minutes*60+seconds
+        days = total_seconds // 86400
+        remainder = total_seconds % 86400
+        hours = remainder // 3600
+        remainder %= 3600
+        minutes = remainder // 60
+        seconds = remainder % 60
+        return(days,hours,minutes,seconds)
+     
+    def calc_hr_left():
+        hrs = 0
+        for values in calendar:
+            if values == 1:
+                hrs += 7.25
+            elif values == 0:
+                pass
+            else:
+                hrs += 6
+        hrs =hrs +school_hours+school_minutes/60+school_seconds/3600
+        return hrs
+        
+
+    end = datetime(2026, 6, 19, 15, 45, 0)
+    start = datetime(2026, 4, 9, 0, 0, 0)
+    diff = now - start
+    total_seconds = float(diff.total_seconds())
+    sliced = int(total_seconds // 86400)
+    calendar = calendar[(sliced-1):]
+    school_days = 0
+    school_hours = 0
+    tm_lft = time_left_tuple(end, now)
+    school_minutes = tm_lft[2]
+    school_seconds = tm_lft[3]
+    curr_index = calendar[0]
+    del calendar[0]
+
+    for values in calendar:
+        if values == 1:
+            school_days += 1
+        elif values == 0:
+            pass
+        else:
+            school_days += 1
+ 
+    
+
+
+    curr_hour = now.hour + now.minute / 60 + now.second / 3600
+    if curr_index == 1:
+        if curr_hour>15.75:
+            school_hours = 0
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "School Has Ended"
+        elif 8.5>curr_hour:
+            school_hours = 7
+            school_minutes = 15
+            school_seconds = 0
+            stattext = "Regular School Day Today"
+        elif 8.5<=curr_hour<=15.75:
+            total_seconds_left = int((15.75 - curr_hour) * 3600)
+            school_hours = total_seconds_left // 3600
+            remainder = total_seconds_left % 3600
+            school_minutes = remainder // 60
+            school_seconds = remainder % 60
+            stattext = "Regular School Day"
+
+    elif curr_index == 0:
+        school_hours = 0
+        school_minutes = 0
+        school_seconds = 0
+        stattext = "No School Today"
+
+    elif curr_index == 0.9:
+        if curr_hour>15.75:
+            school_hours = 0
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "School Has Ended"
+        elif 9.75>curr_hour:
+            school_hours = 6
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "Late Start Today"
+        elif 9.75<=curr_hour<=15.75:
+            total_seconds_left = int((15.75 - curr_hour) * 3600)
+            school_hours = total_seconds_left // 3600
+            remainder = total_seconds_left % 3600
+            school_minutes = remainder // 60
+            school_seconds = remainder % 60
+            stattext = "Late Start"
+        
+    elif curr_index == 0.8:
+        if curr_hour>14.5:
+            school_hours = 0
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "School Has Ended"
+        elif 8.5>curr_hour:
+            school_hours = 6
+            school_minutes = 0
+            school_seconds = 0
+            stattext = "Early Dismissal Today"
+        elif 8.5<=curr_hour<=14.5:
+            total_seconds_left = int((14.5 - curr_hour) * 3600)
+            school_hours = total_seconds_left // 3600
+            remainder = total_seconds_left % 3600
+            school_minutes = remainder // 60
+            school_seconds = remainder % 60
+            stattext = "Early Dismissal"
+
+    if datetime.now().day == 18 and datetime.now().month == 6:
+        stattext = "🎉Last day of school!🎉"
+
+
+    time_rem = time_left_tuple(end, now)
+    if -1<=(time_rem[3] - school_seconds)<=1 and school_seconds != 0:
+        school_seconds = time_rem[3]
+    school_time = normalize(school_days,school_hours,school_minutes,school_seconds)
+    hours_left = calc_hr_left()
+    minutes_left = hours_left*60
+    seconds_left = hours_left*3600
+    
+    document["remtimed"].text = school_time[0]
+    document["remtimeh"].text = school_time[1]
+    document["remtimem"].text = school_time[2]
+    document["remtimes"].text = school_time[3]
+    
+    document["remd"].text = time_rem[0]
+    document["remh"].text = time_rem[1]
+    document["remm"].text = time_rem[2]
+    document["rems"].text = time_rem[3]
+    
+    document["hleft"].text = hours_left
+    document["mleft"].text = minutes_left
+    document["sleft"].text = seconds_left
+    
+    document["status_text"].text = stattext
+    
+
+timer.set_interval(calcu, 500)
+
+
+
+  
