@@ -128,7 +128,7 @@ def calcu():
             school_seconds = remainder % 60
             stattext = "Early Dismissal"
 
-    if datetime.now().day == 18 and datetime.now().month == 6:
+    if datetime.now().day == 19 and datetime.now().month == 6:
         stattext = "🎉Last day of school!🎉"
 
 

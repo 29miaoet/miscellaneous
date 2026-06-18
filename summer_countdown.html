@@ -10,7 +10,7 @@
 </head>
 
 <body onload="brython()">
-<div class="container">
+<div class="container", id="con">
 
 <h2>School Time Remaining:</h2>
 <br>
@@ -42,7 +42,24 @@
 <span id="status_text"></span>
 
 
+<script>
+    function checkEnd() {
+        let now = new Date(Date.now() + 95700*1000);
+        const schoolEnds = new Date(2026, 5, 19, 15, 45);
+        if (now > schoolEnds) {
+            endSchool();
+        }
+        function endSchool() {
+            let container = document.getElementById("con");
+            container.innerHTML = "<h1>SCHOOL HAS ENDED</h1>";
+        }
+    }
+    setInterval(() => {
+        checkEnd();
+    }, 500);
+</script>
 <script type="text/python" src="script.py"></script>
+
 </div>
 </body>
 </html>
